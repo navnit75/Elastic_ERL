@@ -58,5 +58,5 @@ specified range of the two keys key1 and key2
 - For the number of entries `>1000 and <100,000` we would be using the `heapSort`.
 - For the number of entries `>100,000` we would be `AVL trees`. 
 
-## Self Suggestions : 
+## To Do : 
 - Hash Table for medium to large amount of data.
