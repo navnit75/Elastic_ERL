@@ -19,11 +19,12 @@ higher memory requirement but faster (sorting) algorithms. ElasticERL might be a
 
 
 ## Methods Used
-```
+```cpp
 SetEINThreshold(Size): 
-where 100 ≤ Size ≤ ~500,000 is an integer number that defines the size of the list. 
-This size is very important as it will determine what data types or data structures will be used 
-(i.e. a Tree, Hash Table, AVL tree, binary tree, sequence, etc.)
+// where 100 ≤ Size ≤ ~500,000 is an integer number that defines the size of the list. 
+// This size is very important as it will determine what data types or
+// data structures will be used 
+// (i.e. a Tree, Hash Table, AVL tree, binary tree, sequence, etc.)
 ```
 ```
 generate(): randomly generates new non-existing key of 8 digits
