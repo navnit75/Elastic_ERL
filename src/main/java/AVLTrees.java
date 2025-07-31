@@ -194,8 +194,7 @@ class AvlTrees<T extends Comparable<T>> {
      * Inorder traversal of the AVL Tree
      * @returns ArraySequence<T> : Inorder sequence of the AVL Tree
      */
-    public ArraySequence<T> inorderTraversal()
-    {
+    public ArraySequence<T> inorderTraversal() {
         ArraySequence<T> returnValue = new ArraySequence<T>();
         inorderTraversal(rootNode,returnValue);
         return returnValue;
@@ -207,8 +206,7 @@ class AvlTrees<T extends Comparable<T>> {
      * @param arr : Sequence structure in which the elements have to be stored
      */
     private void inorderTraversal(TreeNode<T> head,ArraySequence<T> arr) {
-        if (head != null)
-        {
+        if (head != null) {
             inorderTraversal(head.left,arr);
             arr.add(head.data);
             inorderTraversal(head.right,arr);
@@ -221,7 +219,9 @@ class AvlTrees<T extends Comparable<T>> {
      * @return TreeNode<T> : New root after the remove operation
      */
     public TreeNode<T> removeElement(T key){
-        return remove(rootNode,key);
+        TreeNode<T> newRoot = remove(rootNode, key, null);
+        balance(newRoot);
+        return newRoot;
     }
 
     /**
@@ -230,33 +230,42 @@ class AvlTrees<T extends Comparable<T>> {
      * @param root : Root of the AVL tree
      * @return TreeNode<T> : New root after the remove operation
      */
-    private TreeNode<T> remove(TreeNode<T> root, T key) {
-
-        if(root == null)
-            return root;
-        if(key.compareTo(root.data) < 0)
-            root.left = remove(root.left, key);
-        else if(key.compareTo(root.data) > 0)
-            root.right = remove(root.right, key);
-        else {
-            if ((root.left == null) || (root.right == null)) {
-                TreeNode<T> temp = null;
-                if (temp == root.left)
-                    temp = root.right;
-                else
-                    temp = root.left;
-                if (temp == null) {
-                    temp = root;
-                    root = null;
-                } else
-                    root = temp;
-            } else {
-                TreeNode<T> temp = findMinKey(root.right);
-                root.data = temp.data;
-                root.right = remove(root.right, temp.data);
+    private TreeNode<T> remove(TreeNode<T> root, T key, TreeNode<T> parent) {
+        
+        if(key.compareTo(root.data) < 0) {
+            if(root.left != null) {
+                root.left = remove(root.left, key, root);
             }
         }
-        balance(root);
+        else if(key.compareTo(root.data) > 0) {
+            if(root.right != null) {
+                root.right = remove(root.right, key, root );
+            }
+        } else {
+
+            // Normal deletion
+            if ((root.left != null) && (root.right != null)) {
+                root.data = findMinKey(root.right); // Min most of the right subtree
+                remove(root.right, root.data, root);
+
+            } else if (parent == null) {
+                if(root.left == null) {
+                    root.data = root.right.data;
+                    root.right = root.right.right;
+                    root.left = root.right.left;
+                } else if(root.right == null) {
+                    root.data = root.left.data;
+                    root.right = root.left.right;
+                    root.left = root.left.left;
+                } else {
+                    System.out.println("Node can't be deleted from empty tree");
+                }
+            } else if(parent.left == root) {
+                parent.left = root.left == null ? root.right : root.left;
+            } else if(parent.right == root) {
+                parent.right = root.left == null ? root.right : root.left;
+            }
+        }
         return root;
     }
 
@@ -265,11 +274,11 @@ class AvlTrees<T extends Comparable<T>> {
      * @param n : To be deleted node
      * @return TreeNode<T> : The inorder successor node of the tree
      */
-    private TreeNode<T> findMinKey(TreeNode<T> n) {
+    private T findMinKey(TreeNode<T> n) {
         TreeNode<T> target = n;
         while(target.left != null)
             target = target.left;
-        return target;
+        return target.data;
     }
 
 }
