@@ -280,6 +280,5 @@ class AvlTrees<T extends Comparable<T>> {
             target = target.left;
         return target.data;
     }
-
 }
 
