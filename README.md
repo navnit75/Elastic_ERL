@@ -18,7 +18,7 @@ higher memory requirement but faster (sorting) algorithms. ElasticERL might be a
 * Operations applicable to a complete ElasticERL should not exceed `O(n2)`.
 
 
-## Methods Used
+## APIs
 ```cpp
 SetEINThreshold(Size): 
 // where 100 ≤ Size ≤ ~500,000 is an integer number that defines the size of the list. 
