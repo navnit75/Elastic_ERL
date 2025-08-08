@@ -1,4 +1,4 @@
-# Description
+# Description ( CLI based app )
 
 * EHITS, is an inventory tracking system that supplies information about hospital inventory to prevent 
 loss of valuable equipment. It keeps records of all Equipment Identification Number (EIN). 
